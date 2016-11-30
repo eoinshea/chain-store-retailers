@@ -1,0 +1,94 @@
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.16/d3.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/c3/0.4.10/c3.min.js"></script>
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/c3/0.4.10/c3.min.css"/>
+<div class="container">
+  <div class="row">
+      <div col="col-sm-6">
+        <h4 class="agent-padding"><b>AgentID:</b> <%= @user.agent_id %> | <b>Email:</b> <%= @user.email %></h4> 
+      </div>
+      <div col="col-sm-6">   
+      
+         <%= form_tag(authenticated_week_filter_path) do %>
+         <%= select("week_number", "start_week", @dropdown_values, {include_blank: false}) %>
+         <%= select("week_number", "end_week", @dropdown_values,   {include_blank: false }) %>
+         <%= submit_tag "Filter by week" , class:"btn-sm btn-info  "%>
+         <h4>Week: <%= @start_week %> to <%= @end_week %></h4>
+      <% end %>
+      </div>
+    </div>
+     <br>
+  <div class="row">
+      <div col="col-sm-12">
+          <div id="chart"></div>      
+      </div>
+    </div>
+     <br>
+     <br>
+  <div class="row">
+  <div class="col-lg-12">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Year Number</th>
+            <th>Week Number</th>
+            <th>Lotto</th>
+            <th>LottoPlus</th>
+            <th>EuroMillions</th>
+            <th>EuroMillionsPlus</th>
+            <th>Scratchcard</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <% @user.sales.each do |sale| %>
+            <tr>
+              <td><%= sale.year_number %></td>
+              <td><%= sale.week_number %></td>
+              <td><%= sale.lotto %></td>
+              <td><%= sale.lotto_plus %></td>
+              <td><%= sale.euro_millions %></td>
+              <td><%= sale.euro_millions_plus %></td>
+              <td><%= sale.scratchcard %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+     </div>
+  </div>
+</div>
+
+<script>
+$( document ).ready(function() {
+  var xaxis_min =   <%= @start_week %>;
+  var xaxis_max =   <%= @end_week %>;
+
+  var chart = c3.generate({
+        bindto: '#chart',
+      data: {
+          columns: [
+              <%= raw @lotto_array %>,
+              <%= raw @lotto_plus_array %>,
+              <%= raw @euro_millions_array %>,
+              <%= raw @euro_millions_plus_array %>,
+              <%= raw @scratchcard_array %>]
+      }
+  });
+
+  (function() {
+    chart.axis.range({max: xaxis_max, min: xaxis_min});
+});
+
+});
+</script>
+
+
+<style>
+.agent-padding{
+  margin-top: 50px;
+  margin-right: 50px;
+}
+
+.table-padding{
+  padding-left: 20px;
+}
+</style>

@@ -1,0 +1,48 @@
+CSV.foreach("#{Rails.root}/db/important_user_seed.csv",{:headers=>:first_row}) do |row|
+    column = row[0].split("\t")
+         
+        #Update all fields including NULLs 
+        user.full_name      = column[0]     
+        user.user_type      = column[1]    
+        user.sport          = column[2]     
+        user.league         = column[3]   
+        user.related_tag    = column[4].gsub('#', '') rescue nil
+        user.club_name      = column[5]  
+        user.twitter_name   = column[6]                       
+        user.twitter_id     = column[7]        
+        user.facebook_name  = column[8]    
+        user.facebook_id    = column[9]   
+        user.instagram_name = column[10]    
+        user.instagram_id   = column[11]     
+      end
+      
+    end
+end
+
+
+<% unless current_user.nil? %>
+                        <h1> <%= button_to('Logout', destroy_user_session_path, :method => :delete, class: "btn btn-primary btn-lg") %> </h1>
+ <% end %>
+
+
+
+
+
+rake db:drop && rake db:create && rake db:migrate && rake db:seed
+
+ <li> <% if current_user.nil? %>
+                      <a href="/users/sign_up">Register</a>
+                    <% end %>
+                  </li>
+                  <li><a href="/contact">Contact</a></li>
+                     <li>
+                     <% unless current_user.nil? %>
+                           <%= link_to('Logout', destroy_user_session_path, :method => :delete) %>
+                          <% else %>
+                           <a href="/users/sign_in">Log In</a>
+                           <% end %>
+
+
+
+                           #85C442 -dark 
+                           #E4E842 - not so dark
