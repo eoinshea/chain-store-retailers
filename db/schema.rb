@@ -33,11 +33,11 @@ ActiveRecord::Schema.define(version: 20160430133745) do
     t.string  "agent_id"
     t.integer "year_number"
     t.integer "week_number"
-    t.float   "lotto"
-    t.float   "lotto_plus"
-    t.float   "euro_millions"
-    t.float   "euro_millions_plus"
-    t.float   "scratchcard"
+    t.integer "jumpers"
+    t.integer "jackets"
+    t.integer "scarves"
+    t.integer "belts"
+    t.integer "shoes"
   end
 
   create_table "users", force: true do |t|
