@@ -1,8 +1,8 @@
-user1 = User.create!(email: 'shropshire@example.com', password: 'shropshire123', password_confirmation: 'shropshire123', agent_id: "11111111" ,approved: true )
-user2 = User.create!(email: 'glasgow@example.com', password: 'glasgow123', password_confirmation: 'glasgow123', agent_id: "22222222" ,approved: true )
-user3 = User.create!(email: 'essex@example.com', password: 'essex123', password_confirmation: 'essex123', agent_id: "33333333"  ,approved: false)
-user4 = User.create!(email: 'leeeds@example.com', password: 'leeeds123', password_confirmation: 'leeeds123', agent_id: "44444444",approved: false  )
-user5 = User.create!(email: 'london@example.com', password: 'london123', password_confirmation: 'london123', agent_id: "55555555" ,approved: false )
+user1 = User.create!(email: 'shropshire@example.com', password: 'shropshire', password_confirmation: 'shropshire', agent_id: "11111111" ,approved: true )
+user2 = User.create!(email: 'glasgow@example.com', password: 'glasgowglasgow', password_confirmation: 'glasgowglasgow', agent_id: "22222222" ,approved: true )
+user3 = User.create!(email: 'essex@example.com', password: 'essexessex', password_confirmation: 'essexessex', agent_id: "33333333"  ,approved: false)
+user4 = User.create!(email: 'london@example.com', password: 'londonlondon', password_confirmation: 'londonlondon', agent_id: "44444444",approved: false  )
+user5 = User.create!(email: 'cardiff@example.com', password: 'cardiffcardiff', password_confirmation: 'cardiffcardiff', agent_id: "55555555" ,approved: false )
 
 #sales user 1
 # user1.sales << Sale.create(week_number: 1, year_number: 2016, lotto: 150.00, lotto_plus: 100.00, euro_millions: 112.00, euro_millions_plus: 50.00 , scratchcard: 120.00, agent_id: "11111111" )
@@ -84,6 +84,6 @@ CSV.foreach("#{Rails.root}/db/sales_tab.csv",{:headers=>:first_row}) do |row|
         sale.jackets    		= row[4]
         sale.scarves      	= row[5]
         sale.belts         = row[6]
-        sale.shoes     		= row[7]
+        sale.shoes    		= row[7]
         sale.save
 end
