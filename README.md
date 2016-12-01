@@ -1,6 +1,15 @@
 Chain store Retailers Management System
+https://chainstore.herokuapp.com
+
+
 Rails 4.1.2
-Ruby 2.3.0
+Ruby 2.3.1
+Postgres
+Bootstrap
+Rails Admin
+C3.js 
+JQuery
+
 
 
 email: 'shropshire@example.com', password: 'shropshire'     APPROVED
@@ -25,3 +34,9 @@ improve queries !!!!!1111
 Lock out Owner view to a specific email and password only
 mobile responsiveness on owner view
 general style
+
+Issues
+No mailer
+No scope
+Probably a devise bug
+More tests
