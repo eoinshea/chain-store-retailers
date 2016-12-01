@@ -26,21 +26,9 @@ class User < ActiveRecord::Base
   # :confirmable, :lockable, :timeoutable and :omniauthable
  # has_many :sales
    has_many :sales   # class_name: 'Sale', foreign_key: 'agent_id'
-  #set_primary_key :agent_id
+  # set_primary_key :agent_id
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
 
-
-  # def active_for_authentication? 
-  #   super && approved? 
-  # end 
-
-  # def inactive_message 
-  #   if !approved? 
-  #     :not_approved 
-  #   else 
-  #     super # Use whatever other message 
-  #   end 
-  #end
 end

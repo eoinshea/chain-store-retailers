@@ -6,31 +6,31 @@ class DashboardController < ApplicationController
 	    #start_week = 1 unless  params[:week_number][:start_week]
 	    #end_week = 12 unless  params[:week_number][:end_week]
 
-	    @user = current_user
-		@lotto_array = ['Jumpers']
-		@lotto_plus_array = ['Jackets']
-		@euro_millions_array  = ['Scarves']
-		@euro_millions_plus_array = ['Belts']
-		@scratchcard_array = ['Shoes']
+		@user = current_user
+		@jumpers = ['Jumpers']
+		@jackets = ['Jackets']
+		@scarves  = ['Scarves']
+		@belts = ['Belts']
+		@shoes = ['Shoes']
 		@dropdown_values = User.joins(:sales).where('users.agent_id = sales.agent_id AND users.id = (?)',current_user.id).order('sales.week_number ASC').pluck(:week_number)
 
 		@start_week =  params[:week_number][:start_week] rescue 1
-	    @end_week = params[:week_number][:end_week] rescue @dropdown_values.last
+		@end_week = params[:week_number][:end_week] rescue 52
 
 
 
 	    if @start_week.present?
-			@lotto_array = @lotto_array  + User.joins(:sales).where('users.agent_id = sales.agent_id AND users.id = (?) AND sales.week_number BETWEEN (?) AND (?)',current_user.id, @start_week, @end_week).order('sales.week_number ASC').pluck(:jumpers)
-			@lotto_plus_array = @lotto_plus_array + User.joins(:sales).where('users.agent_id = sales.agent_id AND users.id = (?) AND sales.week_number BETWEEN (?) AND (?)',current_user.id, @start_week, @end_week).order('sales.week_number ASC').pluck(:jackets)
-			@euro_millions_array = @euro_millions_array + User.joins(:sales).where('users.agent_id = sales.agent_id AND users.id = (?) AND sales.week_number BETWEEN (?) AND (?)',current_user.id, @start_week, @end_week).order('sales.week_number ASC').pluck(:scarves)
-			@euro_millions_plus_array = @euro_millions_plus_array + User.joins(:sales).where('users.agent_id = sales.agent_id AND users.id = (?) AND sales.week_number BETWEEN (?) AND (?)',current_user.id, @start_week, @end_week).order('sales.week_number ASC').pluck(:belts)
-			@scratchcard_array = @scratchcard_array + User.joins(:sales).where('users.agent_id = sales.agent_id AND users.id = (?) AND sales.week_number BETWEEN (?) AND (?)',current_user.id, @start_week , @end_week).order('sales.week_number ASC').pluck(:shoes)
+				@jumpers = @jumpers  + User.joins(:sales).where('users.agent_id = sales.agent_id AND users.id = (?) AND sales.week_number BETWEEN (?) AND (?)',current_user.id, @start_week, @end_week).order('sales.week_number ASC').pluck(:jumpers)
+				@jackets = @jackets + User.joins(:sales).where('users.agent_id = sales.agent_id AND users.id = (?) AND sales.week_number BETWEEN (?) AND (?)',current_user.id, @start_week, @end_week).order('sales.week_number ASC').pluck(:jackets)
+				@scarves = @scarves + User.joins(:sales).where('users.agent_id = sales.agent_id AND users.id = (?) AND sales.week_number BETWEEN (?) AND (?)',current_user.id, @start_week, @end_week).order('sales.week_number ASC').pluck(:scarves)
+				@belts = @belts + User.joins(:sales).where('users.agent_id = sales.agent_id AND users.id = (?) AND sales.week_number BETWEEN (?) AND (?)',current_user.id, @start_week, @end_week).order('sales.week_number ASC').pluck(:belts)
+				@shoes = @shoes + User.joins(:sales).where('users.agent_id = sales.agent_id AND users.id = (?) AND sales.week_number BETWEEN (?) AND (?)',current_user.id, @start_week , @end_week).order('sales.week_number ASC').pluck(:shoes)
 		else
-			@lotto_array = @lotto_array  + User.joins(:sales).where('users.agent_id = sales.agent_id AND users.id = (?)',current_user.id).order('sales.week_number ASC').pluck(:jumpers)
-			@lotto_plus_array = @lotto_plus_array + User.joins(:sales).where('users.agent_id = sales.agent_id AND users.id = (?)',current_user.id).order('sales.week_number ASC').pluck(:jackets)
-			@euro_millions_array = @euro_millions_array + User.joins(:sales).where('users.agent_id = sales.agent_id AND users.id = (?)',current_user.id).order('sales.week_number ASC').pluck(:scarves)
-			@euro_millions_plus_array = @euro_millions_plus_array + User.joins(:sales).where('users.agent_id = sales.agent_id AND users.id = (?)',current_user.id).order('sales.week_number ASC').pluck(:belts)
-			@scratchcard_array = @scratchcard_array + User.joins(:sales).where('users.agent_id = sales.agent_id AND users.id = (?)',current_user.id).order('sales.week_number ASC').pluck(:shoes)
+			@jumpers = @jumpers  + User.joins(:sales).where('users.agent_id = sales.agent_id AND users.id = (?)',current_user.id).order('sales.week_number ASC').pluck(:jumpers)
+			@jackets = @jackets + User.joins(:sales).where('users.agent_id = sales.agent_id AND users.id = (?)',current_user.id).order('sales.week_number ASC').pluck(:jackets)
+			@scarves = @scarves + User.joins(:sales).where('users.agent_id = sales.agent_id AND users.id = (?)',current_user.id).order('sales.week_number ASC').pluck(:scarves)
+			@belts = @belts + User.joins(:sales).where('users.agent_id = sales.agent_id AND users.id = (?)',current_user.id).order('sales.week_number ASC').pluck(:belts)
+			@shoes = @shoes + User.joins(:sales).where('users.agent_id = sales.agent_id AND users.id = (?)',current_user.id).order('sales.week_number ASC').pluck(:shoes)
 		end
 
 		
@@ -46,15 +46,15 @@ class DashboardController < ApplicationController
 
 	def filter
 
-		start_week = params[:start_week]
-	    end_week = params[:end_week]
+		start_week = params[:start_week] || 1
+	    end_week = params[:end_week] || 52
 
 
-		@lotto_array = @lotto_array  + User.joins(:sales).where('users.agent_id = sales.agent_id AND users.id = (?) AND sales.week_number BETWEEN (?) AND (?)',current_user.id, start_week, end_week).order('sales.week_number ASC').pluck(:lotto)
-		@lotto_plus_array = @lotto_plus_array + User.joins(:sales).where('users.agent_id = sales.agent_id AND users.id = (?) AND sales.week_number BETWEEN (?) AND (?)',current_user.id, start_week, end_week).order('sales.week_number ASC').pluck(:lotto_plus)
-		@euro_millions_array = @euro_millions_array + User.joins(:sales).where('users.agent_id = sales.agent_id AND users.id = (?) AND sales.week_number BETWEEN (?) AND (?)',current_user.id, start_week, end_week).order('sales.week_number ASC').pluck(:euro_millions)
-		@euro_millions_plus_array = @euro_millions_plus_array + User.joins(:sales).where('users.agent_id = sales.agent_id AND users.id = (?) AND sales.week_number BETWEEN (?) AND (?)',current_user.id, start_week, end_week).order('sales.week_number ASC').pluck(:euro_millions_plus)
-		@scratchcard_array = @scratchcard_array + User.joins(:sales).where('users.agent_id = sales.agent_id AND users.id = (?) AND sales.week_number BETWEEN (?) AND (?)',current_user.id, start_week, end_week).order('sales.week_number ASC').pluck(:scratchcard)
+		@jumpers = @jumpers  + User.joins(:sales).where('users.agent_id = sales.agent_id AND users.id = (?) AND sales.week_number BETWEEN (?) AND (?)',current_user.id, start_week, end_week).order('sales.week_number ASC').pluck(:jumpers)
+		@jumpers = @jumpers + User.joins(:sales).where('users.agent_id = sales.agent_id AND users.id = (?) AND sales.week_number BETWEEN (?) AND (?)',current_user.id, start_week, end_week).order('sales.week_number ASC').pluck(:jackets)
+		@jackets = @jackets + User.joins(:sales).where('users.agent_id = sales.agent_id AND users.id = (?) AND sales.week_number BETWEEN (?) AND (?)',current_user.id, start_week, end_week).order('sales.week_number ASC').pluck(:scarves)
+		@scarves = @scarves + User.joins(:sales).where('users.agent_id = sales.agent_id AND users.id = (?) AND sales.week_number BETWEEN (?) AND (?)',current_user.id, start_week, end_week).order('sales.week_number ASC').pluck(:belts)
+		@shoes = @shoes + User.joins(:sales).where('users.agent_id = sales.agent_id AND users.id = (?) AND sales.week_number BETWEEN (?) AND (?)',current_user.id, start_week, end_week).order('sales.week_number ASC').pluck(:shoes)
 
 		render '/'
 		

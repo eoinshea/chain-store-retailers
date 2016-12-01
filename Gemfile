@@ -57,3 +57,11 @@ gem 'active_median'
 
 #styling
 gem 'frontend-generators'
+
+#testing
+group :test do
+  gem 'rspec-rails'
+  gem 'factory_girl_rails'
+  gem 'faker'
+end
+
